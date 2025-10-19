@@ -5,7 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const MongoStore = require("connect-mongo");
 const socketServer = require("./socket");
-const port = parseInt(process.env.PORT || "8001", 10);
+const port = parseInt(process.env.PORT || "8002", 10);
 require("./config/mongo");
 const app = express();
 
@@ -36,6 +36,7 @@ app.use((req, res, next) => {
   next();
 });
 app.get("/", (req, res) => res.json({ message: "Hello world" }));
+app.use("/", require("./routes"));
 
 const server = socketServer(app);
 server.listen(port, "0.0.0.0");
